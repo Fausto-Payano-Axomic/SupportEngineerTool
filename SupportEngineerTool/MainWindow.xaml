@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:SupportEngineerTool"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModel="clr-namespace:SupportEngineerTool"
+        xmlns:items="clr-namespace:SupportEngineerTool.Items"
+        xmlns:custom="clr-namespace:SupportEngineerTool.CustomControls"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        FontFamily="{StaticResource MaterialDesignFont}"
         ResizeMode="NoResize"
         FontSize="16"
         Title="S.E.T. Support Engineer Tool" Height="800" Width="1005">
@@ -23,42 +25,70 @@
         </ResourceDictionary>
     </Window.Resources>
 
-
+   
+    
     <materialDesign:DialogHost Identifier="RootDialog">
-        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=HelpMenuButton, Path=IsChecked}">
+        
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel MinWidth="200">
+                <DockPanel MinWidth="212">
                     <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}"
                                   DockPanel.Dock="Top"
-                                  HorizontalAlignment="Right" Margin="14"
-                                  IsChecked="{Binding ElementName=HelpMenuButton, Path=IsChecked, Mode=TwoWay}"/>
-                   
+                                  HorizontalAlignment="Right" Margin="16"
+                                  IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"/>
+                    <ListBox x:Name="TopicsListBox" Margin="0 16 0 16" SelectedIndex="0"
+                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="items:Item">
+                                <TextBlock Text="{Binding Name}" Margin="32 0 32 0"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <items:Item Name="Home">
+                            <items:Item.Content>
+                                <custom:Home/>
+                            </items:Item.Content>
+                        </items:Item>
+                        <items:Item Name="Patches">
+                            <items:Item.Content>
+                                <custom:Patches/>
+                            </items:Item.Content>
+                        </items:Item>
+                        <items:Item Name="Tickets">
+                            <items:Item.Content>
+                                <custom:Tickets/>
+                            </items:Item.Content>
+                        </items:Item>
+                    </ListBox>
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
+
             <DockPanel>
+                
                 <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                  Mode="PrimaryDark" DockPanel.Dock="Top">
+                                          Mode="PrimaryMid" DockPanel.Dock="Top" >
                     <DockPanel>
+                        <ToggleButton DockPanel.Dock="Left"
+                                      Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                      IsChecked="False" x:Name="MenuToggleButton"/>
+                        <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                            <StackPanel>
+                                <Button Content="Github"/>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Support Engineer Tool
+                        </TextBlock>
+                        
+                        
+
                     </DockPanel>
+                    
+
                 </materialDesign:ColorZone>
-                <Grid Margin="16" VerticalAlignment="Top">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
+                <ContentControl Margin="16" Content="{Binding ElementName=TopicsListBox, Path=SelectedItem.Content}" />
             </DockPanel>
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
+    
+    
+
 </Window>
