@@ -25,6 +25,7 @@ namespace SupportEngineerTool {
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
             MenuToggleButton.IsChecked = false;
+            
         }
     }
 }
