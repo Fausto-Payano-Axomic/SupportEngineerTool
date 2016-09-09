@@ -8,29 +8,61 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Slider.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.GroupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
+        <Grid Grid.Column="0" Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:Card Width="210" Margin="4 2 8 16" Height="270">
+                    <Grid VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 2">Quick links.</TextBlock>
+
+                        <Border Grid.Column="0"  Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
+                            <Grid Margin="8">
+                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left"
+                        x:Name="GitHubButton">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="GithubCircle"/>
+                                        <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">Github</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </materialDesign:Card>
+            </StackPanel>
+        </Grid>
+
         <GroupBox Grid.Column="2" Grid.Row="0" Header="Installation Information" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="16">
             <StackPanel>
                 <TextBox materialDesign:HintAssist.Hint="Data Folder" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
@@ -39,7 +71,7 @@
                 <TextBox materialDesign:HintAssist.Hint="Image Store" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                          Text="C:/OpenAsset_Images" Margin="5" FontSize="12"
                          MaxLength="60"/>
-                
+
             </StackPanel>
         </GroupBox>
     </Grid>
