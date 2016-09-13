@@ -33,27 +33,48 @@
 
         <Grid Grid.Column="0" Grid.Row="1">
             <StackPanel Orientation="Horizontal">
-                <materialDesign:Card Width="210" Margin="4 2 8 16" Height="270">
+                <materialDesign:Card Width="Auto" Margin="4 2 8 16" Height="270">
                     <Grid VerticalAlignment="Stretch">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 2">Quick links.</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 2" VerticalAlignment="Center" HorizontalAlignment="Center">Quick links.</TextBlock>
 
-                        <Border Grid.Column="0"  Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
+                        <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
                             <Grid Margin="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
                                 <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left"
-                        x:Name="GitHubButton">
+                        x:Name="GitHubButton" Grid.Row="0" Grid.Column="0">
                                     <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="GithubCircle"/>
-                                        <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">Github</TextBlock>
+                                        <materialDesign:PackIcon Kind="GithubCircle" Margin="0 0 8 0"/>
+                                        <TextBlock VerticalAlignment="Center">Github</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right" x:Name="EmailButton" Grid.Row="1" Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Email" Margin="0 0 8 0"/>
+                                        <TextBlock VerticalAlignment="Center">Email</TextBlock>
+                                    </StackPanel>
+                                </Button>
+
+                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right" x:Name="ZenDeskButton" Grid.Row="0" Grid.Column="2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Ticket" Margin="0 0 8 0"/>
+                                        <TextBlock VerticalAlignment="Center">ZenDesk</TextBlock>
                                     </StackPanel>
                                 </Button>
                             </Grid>
@@ -76,3 +97,4 @@
         </GroupBox>
     </Grid>
 </UserControl>
+
