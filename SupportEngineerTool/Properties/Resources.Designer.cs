@@ -63,9 +63,9 @@ namespace SupportEngineerTool.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap openasset_logo {
+        internal static System.Drawing.Bitmap logo4use {
             get {
-                object obj = ResourceManager.GetObject("openasset_logo", resourceCulture);
+                object obj = ResourceManager.GetObject("logo4use", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
