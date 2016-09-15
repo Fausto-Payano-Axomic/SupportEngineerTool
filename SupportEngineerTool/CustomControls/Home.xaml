@@ -92,6 +92,9 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
+                    <TextBox materialDesign:HintAssist.Hint="Code Base" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         Text="C:/OpenAsset_10_x_x" Margin="5" FontSize="12"
+                         MaxLength="60"/>
                     <TextBox materialDesign:HintAssist.Hint="Data Folder" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                          Text="C:/OpenAsset_Data" Margin="5" FontSize="12"
                          MaxLength="60"/>
