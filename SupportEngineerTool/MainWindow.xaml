@@ -14,7 +14,7 @@
         FontFamily="{StaticResource MaterialDesignFont}"
         ResizeMode="NoResize"
         FontSize="16"
-        Title="S.E.T. Support Engineer Tool" Height="800" Width="1005">
+        Title="S.E.T. Support Engineer Tool" Height="800" Width="1005" Icon="Resources/TransparentLogo.ico">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
