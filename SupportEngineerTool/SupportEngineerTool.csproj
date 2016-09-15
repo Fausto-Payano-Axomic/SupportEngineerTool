@@ -35,7 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\openasset icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -150,9 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\logo4use.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\openasset icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\TransparentLogo.ico" />
