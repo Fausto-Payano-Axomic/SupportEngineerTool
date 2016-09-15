@@ -60,20 +60,22 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left"
-                        x:Name="GitHubButton" Grid.Row="0" Grid.Column="0">
+                        x:Name="GitHubButton" Grid.Row="0" Grid.Column="0" Click="GitHubButton_OnClick">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="GithubCircle" Margin="0 0 8 0"/>
                                         <TextBlock VerticalAlignment="Center">Github</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right" x:Name="EmailButton" Grid.Row="1" Grid.Column="0">
+                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right" x:Name="EmailButton" 
+                                        Grid.Row="1" Grid.Column="0">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="Email" Margin="0 0 8 0"/>
                                         <TextBlock VerticalAlignment="Center">Email</TextBlock>
                                     </StackPanel>
                                 </Button>
 
-                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right" x:Name="ZenDeskButton" Grid.Row="0" Grid.Column="2">
+                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right" x:Name="ZenDeskButton" 
+                                        Grid.Row="0" Grid.Column="1" Click="ZenDeskButton_OnClick">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="Ticket" Margin="0 0 8 0"/>
                                         <TextBlock VerticalAlignment="Center">ZenDesk</TextBlock>
