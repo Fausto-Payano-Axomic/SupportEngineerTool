@@ -33,8 +33,12 @@ namespace SupportEngineerTool.Models {
                 return String.Empty;
             }
 
+
+
             public string LocatePath(string targetFolder) {
+
                 DriveInfo[] allDrives = DriveInfo.GetDrives();
+
                 List<string> possibleFolders = new List<string>();
 
                 foreach (var driveInfo in allDrives) {
@@ -59,6 +63,7 @@ namespace SupportEngineerTool.Models {
                     }
                 return "No Installation Folder Found";
             }
+
         }
     }
 }
