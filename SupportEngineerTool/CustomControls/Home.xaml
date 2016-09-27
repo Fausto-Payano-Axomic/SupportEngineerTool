@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:SupportEngineerTool.CustomControls"
              mc:Ignorable="d" 
+             xmlns:dc="clr-namespace:SupportEngineerTool.ViewModels"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -21,6 +22,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <dc:InstallationCardViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -46,8 +50,6 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="../Resources/logo4use.jpg" Grid.Row="0" Grid.Column="0" StretchDirection="DownOnly" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <!--<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                   Margin="16 16 16 2" VerticalAlignment="Center" HorizontalAlignment="Center">Quick links.</TextBlock> !-->
 
                         <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
                             <Grid Margin="8">
@@ -88,22 +90,36 @@
             </StackPanel>
         </Grid>
         <!-- Installation Card Control !-->
-        <GroupBox Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Header="Installation Information" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="0 0 8 0">
+        <GroupBox Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" 
+                  Header="Installation Information" Style="{DynamicResource MaterialDesignCardGroupBox}" 
+                  Margin="0 0 8 0" DataContext="dc:InstallationCardViewModel">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <TextBox materialDesign:HintAssist.Hint="Code Base" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                         Text="C:/OpenAsset_10_x_x" Margin="5" FontSize="12"
-                         MaxLength="60"/>
-                    <TextBox materialDesign:HintAssist.Hint="Data Folder" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                         Text="C:/OpenAsset_Data" Margin="5" FontSize="12"
-                         MaxLength="60"/>
-                    <TextBox materialDesign:HintAssist.Hint="Image Store" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                         Text="C:/OpenAsset_Images" Margin="5" FontSize="12"
-                         MaxLength="60"/>
+                    <TextBox materialDesign:HintAssist.Hint="Install Path" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" FontSize="12" 
+                             Text="{Binding InstallFolderPath}"
+                         MaxLength="60">
+                        <TextBox.DataContext>
+                            <dc:InstallationCardViewModel/>
+                        </TextBox.DataContext>
+                    </TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="Data Folder" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="5"
+                         Text="{Binding DataFolder}" FontSize="12"
+                         MaxLength="60">
+                        <TextBox.DataContext>
+                            <dc:InstallationCardViewModel/>
+                        </TextBox.DataContext>
+                    </TextBox>
+                    <TextBox materialDesign:HintAssist.Hint="Image Store" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" 
+                         Text="{Binding ImageStore}" FontSize="12"
+                         MaxLength="60">
+                        <TextBox.DataContext>
+                            <dc:InstallationCardViewModel/>
+                        </TextBox.DataContext>
+                    </TextBox>
                 </StackPanel>
 
 
@@ -116,7 +132,9 @@
                                  HorizontalAlignment="Center"
                                  Visibility="Hidden"/>
 
-                    <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Center" x:Name="SyncButton">
+                    <Button Style="{DynamicResource MaterialDesignFlatButton}" 
+                            HorizontalAlignment="Center" x:Name="SyncButton"
+                            Click="SyncButton_OnClick">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Refresh" Margin="0 0 8 0"/>
                             <TextBlock VerticalAlignment="Center">Refresh</TextBlock>

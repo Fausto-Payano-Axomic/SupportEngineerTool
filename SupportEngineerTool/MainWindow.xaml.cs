@@ -13,6 +13,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SupportEngineerTool.Models;
+using SupportEngineerTool.ViewModels;
 
 namespace SupportEngineerTool {
     /// <summary>
@@ -21,6 +23,7 @@ namespace SupportEngineerTool {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+            
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e) {

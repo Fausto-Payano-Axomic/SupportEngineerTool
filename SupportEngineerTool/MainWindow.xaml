@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SupportEngineerTool"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:viewModel="clr-namespace:SupportEngineerTool"
+        xmlns:viewModel="clr-namespace:SupportEngineerTool.ViewModels"
         xmlns:items="clr-namespace:SupportEngineerTool.Items"
         xmlns:custom="clr-namespace:SupportEngineerTool.CustomControls"
         mc:Ignorable="d"
@@ -15,6 +15,9 @@
         ResizeMode="NoResize"
         FontSize="16"
         Title="S.E.T. Support Engineer Tool" Height="800" Width="1005" Icon="Resources/TransparentLogo.ico">
+    <Window.DataContext>
+        <viewModel:InstallationCardViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,9 +27,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
-   
-    
+ 
     <materialDesign:DialogHost Identifier="RootDialog">
         
         <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
@@ -77,12 +78,7 @@
                         </materialDesign:PopupBox>
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Support Engineer Tool
                         </TextBlock>
-                        
-                        
-
                     </DockPanel>
-                    
-
                 </materialDesign:ColorZone>
                 <ContentControl Margin="16" Content="{Binding ElementName=TopicsListBox, Path=SelectedItem.Content}" />
             </DockPanel>
