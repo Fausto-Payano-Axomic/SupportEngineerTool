@@ -14,7 +14,7 @@
         FontFamily="{StaticResource MaterialDesignFont}"
         ResizeMode="NoResize"
         FontSize="16"
-        Title="S.E.T. Support Engineer Tool" Height="800" Width="1005" Icon="Resources/TransparentLogo.ico">
+        Title="S.E.T. Support Engineer Tool" Height="800" Width="1005">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -58,11 +58,6 @@
                                 <custom:Tickets/>
                             </items:Item.Content>
                         </items:Item>
-                        <items:Item Name="Apache">
-                            <items:Item.Content>
-                                <custom:Apache/>
-                            </items:Item.Content>
-                        </items:Item>
                     </ListBox>
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
@@ -71,8 +66,10 @@
                 
                 <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                           Mode="PrimaryMid" DockPanel.Dock="Top" >
-                    <DockPanel Height="71">
-                        <ToggleButton DockPanel.Dock="Left" Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False" x:Name="MenuToggleButton"/>
+                    <DockPanel>
+                        <ToggleButton DockPanel.Dock="Left"
+                                      Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                      IsChecked="False" x:Name="MenuToggleButton"/>
                         <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                             <StackPanel>
                                 <Button Content="Github"/>
@@ -81,7 +78,9 @@
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Support Engineer Tool
                         </TextBlock>
                         
-               </DockPanel>
+                        
+
+                    </DockPanel>
                     
 
                 </materialDesign:ColorZone>

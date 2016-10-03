@@ -17,7 +17,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.GroupBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ProgressBar.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -31,24 +30,24 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <!-- Quick Links Control !-->
-        <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
+
+        <Grid Grid.Column="0" Grid.Row="1">
             <StackPanel Orientation="Horizontal">
-                <materialDesign:Card Width="Auto" Margin="8 0 0 0" Height="270">
+                <materialDesign:Card Width="Auto" Margin="4 2 8 16" Height="270">
                     <Grid VerticalAlignment="Stretch">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
+
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="../Resources/logo4use.jpg" Grid.Row="0" Grid.Column="0" StretchDirection="DownOnly" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <!--<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                   Margin="16 16 16 2" VerticalAlignment="Center" HorizontalAlignment="Center">Quick links.</TextBlock> !-->
 
-                        <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 2" VerticalAlignment="Center" HorizontalAlignment="Center">Quick links.</TextBlock>
+
+                        <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
                             <Grid Margin="8">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -59,22 +58,20 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left"
-                        x:Name="GitHubButton" Grid.Row="0" Grid.Column="0" Click="GitHubButton_OnClick">
+                        x:Name="GitHubButton" Grid.Row="0" Grid.Column="0">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="GithubCircle" Margin="0 0 8 0"/>
                                         <TextBlock VerticalAlignment="Center">Github</TextBlock>
                                     </StackPanel>
                                 </Button>
-                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right" x:Name="EmailButton" 
-                                        Grid.Row="1" Grid.Column="0">
+                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right" x:Name="EmailButton" Grid.Row="1" Grid.Column="0">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="Email" Margin="0 0 8 0"/>
                                         <TextBlock VerticalAlignment="Center">Email</TextBlock>
                                     </StackPanel>
                                 </Button>
 
-                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right" x:Name="ZenDeskButton" 
-                                        Grid.Row="0" Grid.Column="1" Click="ZenDeskButton_OnClick">
+                                <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right" x:Name="ZenDeskButton" Grid.Row="0" Grid.Column="2">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="Ticket" Margin="0 0 8 0"/>
                                         <TextBlock VerticalAlignment="Center">ZenDesk</TextBlock>
@@ -86,43 +83,17 @@
                 </materialDesign:Card>
             </StackPanel>
         </Grid>
-        <!-- Installation Card Control !-->
-        <GroupBox Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Header="Installation Information" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="0 0 8 0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0">
-                    <TextBox materialDesign:HintAssist.Hint="Code Base" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                         Text="C:/OpenAsset_10_x_x" Margin="5" FontSize="12"
-                         MaxLength="60"/>
-                    <TextBox materialDesign:HintAssist.Hint="Data Folder" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+
+        <GroupBox Grid.Column="2" Grid.Row="0" Header="Installation Information" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="16">
+            <StackPanel>
+                <TextBox materialDesign:HintAssist.Hint="Data Folder" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                          Text="C:/OpenAsset_Data" Margin="5" FontSize="12"
                          MaxLength="60"/>
-                    <TextBox materialDesign:HintAssist.Hint="Image Store" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                <TextBox materialDesign:HintAssist.Hint="Image Store" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                          Text="C:/OpenAsset_Images" Margin="5" FontSize="12"
                          MaxLength="60"/>
-                </StackPanel>
 
-
-                <!-- FPA: I don't like how this looks. Will need to be reworked at some point !-->
-                <StackPanel Grid.Row="1">
-                    <ProgressBar x:Name="InstallationControlProgressBar" Style="{StaticResource MaterialDesignCircularProgressBar}" 
-                                 Value="0"
-                                 IsIndeterminate="True"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"
-                                 Visibility="Hidden"/>
-
-                    <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Center" x:Name="SyncButton">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Refresh" Margin="0 0 8 0"/>
-                            <TextBlock VerticalAlignment="Center">Refresh</TextBlock>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-            </Grid>
+            </StackPanel>
         </GroupBox>
     </Grid>
 </UserControl>
