@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace SupportEngineerTool.Models {
     public class InstallInformation {
@@ -15,11 +16,13 @@ namespace SupportEngineerTool.Models {
 
         public InstallInformation() {
             ApacheConfigFile = new OpenAssetConfigurationFile();
-            this.InstallFolder = ApacheConfigFile.InstallPath;
+            this.InstallFolder = ApacheConfigFile.CodeBase;
             this.DataStore = ApacheConfigFile.DataPath;
             this.ImageStore = GetImageStoreLocation().Replace(@"\",@"/");
+            Log.Logger.Information($"Install information located: Installation Folder: {this.InstallFolder}, " +
+                                   $"DataStore {this.DataStore} -" +
+                                   $"Image Store {this.ImageStore}");
         }
-        //TODO: Decide where we're going to get this information from. DB? Or manually search for it on the hard disks.
 
         public string GetImageStoreLocation() {
             return LocatePath("OpenAsset_Images");

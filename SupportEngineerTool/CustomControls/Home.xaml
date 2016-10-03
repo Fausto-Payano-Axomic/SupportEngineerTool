@@ -99,7 +99,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <TextBox materialDesign:HintAssist.Hint="Install Path" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" FontSize="12" 
+                    <TextBox materialDesign:HintAssist.Hint="Code Base" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" FontSize="12" 
                              Text="{Binding InstallFolderPath}"
                          MaxLength="60">
                         <TextBox.DataContext>

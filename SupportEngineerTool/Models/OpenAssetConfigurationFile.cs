@@ -8,21 +8,22 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 using SupportEngineerTool.Annotations;
 
 //TODO: Implement the ports that the Apache file is listening on. Removed for now because I cannot figure out how to properly transfer over the collection to the viewmodel so that it updates.
 
 namespace SupportEngineerTool.Models {
     public class OpenAssetConfigurationFile : INotifyPropertyChanged {
-        public string installPath { get; set; }
+        public string codeBase { get; set; }
         public string dataPath { get; set; }
        // public List<string> openPorts { get; set; }
         public string databaseName { get; set; }
 
-        public string InstallPath {
-            get { return installPath; }
+        public string CodeBase {
+            get { return codeBase; }
             set {
-                installPath = value;
+                codeBase = value;
                 NotifyPropertyChanged();
             }
 
@@ -63,7 +64,7 @@ namespace SupportEngineerTool.Models {
                              this.OpenPorts.Add(ParseLine(line));
                          }*/
                         if (line.Contains("OpenAsset_Install_Path")) {
-                            this.InstallPath = ParseLine(line);
+                            this.CodeBase = ParseLine(line);
                         }
                         else if (line.Contains("OpenAsset_Data_Path")) {
                             this.DataPath = ParseLine(line);
@@ -75,8 +76,8 @@ namespace SupportEngineerTool.Models {
                 }
             }
             catch (Exception readConfigFileException) {
-                /*Log.Logger.Error(
-                    $"Error reading configuration file located at {filePath}. The exception is as below: \n {readConfigFileException.Message}");*/
+                Log.Logger.Error(
+                    $"Error reading configuration file located at {filePath}. The exception is as below: \n {readConfigFileException.Message}");
             }
 
         }
