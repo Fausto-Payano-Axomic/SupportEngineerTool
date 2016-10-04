@@ -50,19 +50,19 @@ namespace SupportEngineerTool.Models
         
      
         
-        public static void generateSelfSignedSSLCert()
+        public static void GenerateSelfSignedSslCert()
         {
             ProcessStartInfo startInfo = new ProcessStartInfo(openSSL, "req - newkey rsa: 2048 - nodes - keyout server.key - x509 - days 730 -out server.cert");
             Process.Start(startInfo);
         }
 
-        public static void generateCSR()
+        public static void GenerateCsr()
         {
             ProcessStartInfo startInfo = new ProcessStartInfo(openSSL, "req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr");
             Process.Start(startInfo);
         }
 
-        public static void processClientPfxFile()
+        public static void ProcessClientPfxFile()
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
         }

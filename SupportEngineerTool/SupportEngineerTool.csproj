@@ -129,9 +129,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\SelfSignedCertCreator.cs" />
     <Compile Include="Models\Installation.cs" />
     <Compile Include="Models\OpenAssetConfigurationFile.cs" />
+    <Compile Include="Models\SSLCertCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
