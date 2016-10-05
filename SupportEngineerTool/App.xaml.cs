@@ -6,8 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Serilog;
-using Serilog.Sinks.Literate;
-using Serilog.Sinks.RollingFile;
 
 namespace SupportEngineerTool {
     /// <summary>
@@ -18,10 +16,13 @@ namespace SupportEngineerTool {
         protected override void OnStartup(StartupEventArgs e) {
             base.OnStartup(e);
 
-            var log = new LoggerConfiguration()
+           var log = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.RollingFile("logs\\SupportEngineerTool-{Date}.txt")
                 .CreateLogger();
+
+            Log.Logger = log;
+            Log.Logger.Information("S.E.T started.");
         }
 
         
