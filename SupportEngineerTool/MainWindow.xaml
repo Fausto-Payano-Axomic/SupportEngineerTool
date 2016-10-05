@@ -59,6 +59,11 @@
                                 <custom:Tickets/>
                             </items:Item.Content>
                         </items:Item>
+                        <items:Item Name="Apache">
+                            <items:Item.Content>
+                                <custom:Apache/>
+                            </items:Item.Content>
+                        </items:Item>
                     </ListBox>
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
@@ -67,10 +72,8 @@
                 
                 <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                           Mode="PrimaryMid" DockPanel.Dock="Top" >
-                    <DockPanel>
-                        <ToggleButton DockPanel.Dock="Left"
-                                      Style="{StaticResource MaterialDesignHamburgerToggleButton}"
-                                      IsChecked="False" x:Name="MenuToggleButton"/>
+                    <DockPanel Height="71">
+                        <ToggleButton DockPanel.Dock="Left" Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False" x:Name="MenuToggleButton"/>
                         <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                             <StackPanel>
                                 <Button Content="Github"/>
@@ -78,7 +81,8 @@
                         </materialDesign:PopupBox>
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Support Engineer Tool
                         </TextBlock>
-                    </DockPanel>
+                        
+               </DockPanel>
                 </materialDesign:ColorZone>
                 <ContentControl Margin="16" Content="{Binding ElementName=TopicsListBox, Path=SelectedItem.Content}" />
             </DockPanel>
