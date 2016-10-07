@@ -28,26 +28,27 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                
             </Grid.ColumnDefinitions>
-            <materialDesign:Card Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFF179F1">
+            <materialDesign:Card  Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="500" Background="#FFF99B2A">
                 <StackPanel Margin="5">
                     <Border>
                         <!-- TODO: Change TextBox below to TextBlock and use the appropriate style that you'd like!-->
 
-                        <TextBlock x:Name="HeaderTextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Height="Auto" Width="Auto" 
-                               Text="Drag and Drop PFX or PKCS File Below" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadlineTextBlock}"></TextBlock>
+                        <TextBlock x:Name="TopTextBlock" TextWrapping="Wrap" VerticalAlignment="Center" Width="450" Grid.ColumnSpan="2"
+                               Text="Drag and Drop PFX or PKCS File Below" TextAlignment="Center" Padding="10 10"  HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadlineTextBlock}" ></TextBlock>
                     </Border>
                 </StackPanel>
             </materialDesign:Card>
+            
 
-            <materialDesign:Card Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" >
+            <materialDesign:Card Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" >
                 <StackPanel Margin="5">
                     <Border>
                         <!-- TODO: Change TextBox below to TextBlock and use the appropriate style that you'd like!-->
 
-                        <TextBlock x:Name="DragAndDropBox" TextWrapping="Wrap" VerticalAlignment="Center" Height="400" Width="Auto"
-                               Text="Drag and Drop Here..." HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadlineTextBlock}" ></TextBlock>
+                        <TextBlock x:Name="DragAndDropBox" TextWrapping="Wrap" VerticalAlignment="Center" Height="350" Width="Auto" 
+                               Text="Drag and Drop Here..." HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="10,0" ></TextBlock>
                     </Border>
                 </StackPanel>
             </materialDesign:Card>
