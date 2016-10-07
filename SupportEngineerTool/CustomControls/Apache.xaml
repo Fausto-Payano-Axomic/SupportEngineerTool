@@ -42,7 +42,8 @@
             </materialDesign:Card>
             
 
-            <materialDesign:Card Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" >
+            <materialDesign:Card Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
+                                 AllowDrop="True" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" DragEnter="Card_DragEnter" Drop="Card_Drop" >
                 <StackPanel Margin="5">
                     <Border>
                         <!-- TODO: Change TextBox below to TextBlock and use the appropriate style that you'd like!-->
