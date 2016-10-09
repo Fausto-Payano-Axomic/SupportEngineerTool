@@ -4,6 +4,9 @@ using System;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics;
+using System.Net;
+using System.Linq;
+using System.Net.Sockets;
 
 namespace SupportEngineerTool.Models
 {
@@ -47,9 +50,15 @@ namespace SupportEngineerTool.Models
                 }
             } 
         }
-        
-     
-        
+        //Need ip address when updating httpd-vhost file redirect entry in Apache24 conf folder
+        private static string GetMyIPAddress()
+        {
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            string myIP = host.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork).ToString();
+
+            return myIP;
+        }
+
         public static void GenerateSelfSignedSslCert()
         {
             ProcessStartInfo startInfo = new ProcessStartInfo(openSSL, "req - newkey rsa: 2048 - nodes - keyout server.key - x509 - days 730 -out server.cert");
