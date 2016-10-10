@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SupportEngineerTool.HelperClasses {
    public class ViewModelLocator {
         private  static InstallationCardViewModel _installationCardViewModel = new InstallationCardViewModel();

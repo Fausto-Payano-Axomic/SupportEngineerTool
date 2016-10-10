@@ -11,15 +11,18 @@ using System.Threading.Tasks;
 using Serilog;
 using SupportEngineerTool.Annotations;
 
-//TODO: Implement the ports that the Apache file is listening on. Removed for now because I cannot figure out how to properly transfer over the collection to the viewmodel so that it updates.
 
 namespace SupportEngineerTool.Models {
+
+    //This class may not need to notify anyone that its property changed. Could probably remove that unless its implemented as part of the ApacheViewModel.
+
     public class OpenAssetConfigurationFile : INotifyPropertyChanged {
         private string codeBase { get; set; }
         private string dataPath { get; set; }
-       // public List<string> openPorts { get; set; }
+       //public List<string> openPorts { get; set; }
         private string databaseName { get; set; }
 
+        #region Public_Properties
         public string CodeBase {
             get { return codeBase; }
             set {
@@ -43,14 +46,11 @@ namespace SupportEngineerTool.Models {
                 NotifyPropertyChanged();
             }
         }
-        //TODO Update notifycollection changed? Or can I still use PropertyChanged.
+        #endregion
+        /* public ObservableCollection<string> OpenPorts {get { return openPorts; }
+             set[]
 
-       /* public ObservableCollection<string> OpenPorts {get { return openPorts; }
-            set[]
-            
-        }*/
-
-
+         }*/
         public OpenAssetConfigurationFile(string filePath = "C:/Apache2/conf/OpenAsset.conf") {
             ReadConfigurationFile(filePath);
         }
@@ -95,6 +95,7 @@ namespace SupportEngineerTool.Models {
             }
         }
 
+        #region NotifyPropertyChanged
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "") {
             if (PropertyChanged != null) {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
@@ -107,5 +108,6 @@ namespace SupportEngineerTool.Models {
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 }
