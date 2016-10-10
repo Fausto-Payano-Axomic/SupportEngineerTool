@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,32 +18,32 @@ namespace SupportEngineerTool.Models {
     //This class may not need to notify anyone that its property changed. Could probably remove that unless its implemented as part of the ApacheViewModel.
 
     public class OpenAssetConfigurationFile : INotifyPropertyChanged {
-        private string codeBase { get; set; }
-        private string dataPath { get; set; }
+        private string _codeBase { get; set; }
+        private string _dataPath { get; set; }
        //public List<string> openPorts { get; set; }
-        private string databaseName { get; set; }
+        private string _databaseName { get; set; }
 
         #region Public_Properties
         public string CodeBase {
-            get { return codeBase; }
+            get { return _codeBase; }
             set {
-                codeBase = value;
+                _codeBase = value;
                 NotifyPropertyChanged();
             }
 
         }
         public string DataPath {
-            get { return dataPath; }
+            get { return _dataPath; }
             set {
-                dataPath = value;
+                _dataPath = value;
                 NotifyPropertyChanged();
             }
         }
 
         public string DatabaseName {
-            get { return databaseName; }
+            get { return _databaseName; }
             set {
-                databaseName = value;
+                _databaseName = value;
                 NotifyPropertyChanged();
             }
         }
@@ -74,11 +75,14 @@ namespace SupportEngineerTool.Models {
                         }
                     }
                 }
+                
             }
+
             catch (Exception readConfigFileException) {
                 Log.Logger.Error(
                     $"Error reading configuration file located at {filePath}. The exception is as below: \n {readConfigFileException.Message}");
             }
+            CoverAnyNullOrEmpty(this);
 
         }
         private string ParseLine(string line) {
@@ -94,6 +98,17 @@ namespace SupportEngineerTool.Models {
                 return stringContainer[2];
             }
         }
+
+        private void CoverAnyNullOrEmpty(object obj) {
+            foreach (PropertyInfo property in obj.GetType().GetProperties()) {
+                if (property.PropertyType == typeof(string) && !property.Name.Contains("_")) {
+                    if(string.IsNullOrEmpty((string)property.GetValue(obj))) {
+                        property.SetValue(obj, "No Information Available", null);
+                    }
+                }
+            }
+        }
+           
 
         #region NotifyPropertyChanged
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "") {

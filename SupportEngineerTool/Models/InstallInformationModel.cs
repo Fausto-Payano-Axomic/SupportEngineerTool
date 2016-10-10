@@ -37,6 +37,7 @@ namespace SupportEngineerTool.Models {
             }
         }
 
+
         public OpenAssetConfigurationFile ApacheConfigFile { get; set; }
         public InstallInformationModel() {
             ApacheConfigFile = new OpenAssetConfigurationFile();
