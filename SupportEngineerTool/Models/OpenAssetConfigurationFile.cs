@@ -15,10 +15,10 @@ using SupportEngineerTool.Annotations;
 
 namespace SupportEngineerTool.Models {
     public class OpenAssetConfigurationFile : INotifyPropertyChanged {
-        public string codeBase { get; set; }
-        public string dataPath { get; set; }
+        private string codeBase { get; set; }
+        private string dataPath { get; set; }
        // public List<string> openPorts { get; set; }
-        public string databaseName { get; set; }
+        private string databaseName { get; set; }
 
         public string CodeBase {
             get { return codeBase; }

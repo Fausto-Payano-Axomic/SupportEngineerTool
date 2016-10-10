@@ -85,21 +85,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HelperClasses\ViewModelLocator.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Utilities\CustomCommand.cs" />
+    <Compile Include="ViewModels\ApacheViewModel.cs" />
     <Compile Include="ViewModels\InstallationCardViewModel.cs" />
-    <Page Include="CustomControls\Apache.xaml">
+    <Page Include="Views\Apache.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControls\Home.xaml">
+    <Page Include="Views\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControls\Patches.xaml">
+    <Page Include="Views\Patches.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControls\Tickets.xaml">
+    <Page Include="Views\Tickets.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -111,16 +114,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CustomControls\Apache.xaml.cs">
+    <Compile Include="Views\Apache.xaml.cs">
       <DependentUpon>Apache.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\Home.xaml.cs">
+    <Compile Include="Views\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\Patches.xaml.cs">
+    <Compile Include="Views\Patches.xaml.cs">
       <DependentUpon>Patches.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\Tickets.xaml.cs">
+    <Compile Include="Views\Tickets.xaml.cs">
       <DependentUpon>Tickets.xaml</DependentUpon>
     </Compile>
     <Compile Include="Items\Item.cs" />
@@ -131,7 +134,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\InstallInformation.cs" />
+    <Compile Include="Models\InstallInformationModel.cs" />
     <Compile Include="Models\OpenAssetConfigurationFile.cs" />
     <Compile Include="Models\SSLCertCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -151,6 +154,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -167,9 +171,7 @@
   <ItemGroup>
     <Resource Include="Resources\TransparentLogo.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="HelperClasses\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
