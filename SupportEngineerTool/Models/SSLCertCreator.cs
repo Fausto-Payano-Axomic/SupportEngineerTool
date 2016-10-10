@@ -12,14 +12,14 @@ namespace SupportEngineerTool.Models
 {
     class SSLCertCreator
     {
-         private static string pfxFile;
-         private static string openSSL = @"c:\Apache\bin\openssl.exe";
-
+         public static string pfxFile;
+         public static string openSSL = @"c:\Apache\bin\openssl.exe";
+         public static string oaConfFile = @"C:\Apache\conf\OpenAsset.conf";
+         public static string httpdVHostFile = @"C:\Apache24\conf\extra\httpd-vhost.conf";
         //check openasset conf for any ssl configuration
         public static void CheckForExistingOpenAssetConf()
         {
             bool found = false;
-            string oaConfFile = @"C:\Apache\conf\OpenAsset.conf";
 
             found = File.Exists(oaConfFile) ? true : false;
 
@@ -50,13 +50,25 @@ namespace SupportEngineerTool.Models
                 }
             } 
         }
-        //Need ip address when updating httpd-vhost file redirect entry in Apache24 conf folder
-        private static string GetMyIPAddress()
+
+        private static string CreateApacheRedirectEntry()
         {
+            string prefix = "http://";
+            string port = ":8080";
+            string redirectURL = String.Empty;
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
             string myIP = host.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork).ToString();
+            redirectURL = prefix + myIP + port + "/";
+            return redirectURL;
+        }
+        //For new apache httpd-vhost.conf file only. 
+        private static void ReplaceProxyByPassEntryInApache()
+        {
+            string NewProxyPassURL = CreateApacheRedirectEntry();   
 
-            return myIP;
+            string text = File.ReadAllText(httpdVHostFile);
+            text = text.Replace("some text", NewProxyPassURL);
+            File.WriteAllText("http://<Servers_IP>:8080/", httpdVHostFile);
         }
 
         public static void GenerateSelfSignedSslCert()
