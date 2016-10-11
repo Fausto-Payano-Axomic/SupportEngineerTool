@@ -12,10 +12,12 @@ namespace SupportEngineerTool.Models
 {
     class SSLCertCreator
     {
-         public static string pfxFile;
-         public static string openSSL = @"c:\Apache\bin\openssl.exe";
-         public static string oaConfFile = @"C:\Apache\conf\OpenAsset.conf";
-         public static string httpdVHostFile = @"C:\Apache24\conf\extra\httpd-vhost.conf";
+        public static string pfxFile;
+     
+        public static string openSSL = @"c:\Apache\bin\openssl.exe";
+        public static string oaConfFile = @"C:\Apache\conf\OpenAsset.conf";
+        public static string httpdVHostFile = @"C:\Apache24\conf\extra\httpd-vhost.conf";
+
         //check openasset conf for any ssl configuration
         public static void CheckForExistingOpenAssetConf()
         {
@@ -85,8 +87,32 @@ namespace SupportEngineerTool.Models
 
         public static void ProcessClientPfxFile()
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo();
+            ExtractPrivateKeyFromClientPFXFile();
+            RemovePassPhraseFromPrivateKey();
+            ExtractCertFromClientPFX();
         }
         
+        private static void ExtractPrivateKeyFromClientPFXFile()
+        {
+
+            ProcessStartInfo getPrivateKey = new ProcessStartInfo(openSSL, "pkcs12 -in " + pfxFile + " -nocerts -out original_priv.pem");
+            Process.Start(getPrivateKey);
+       
+        }
+
+        private static void RemovePassPhraseFromPrivateKey()
+        {
+            ProcessStartInfo removePassphrase = new ProcessStartInfo(openSSL, "rsa -in original_priv.pem -out priv.pem");
+            Process.Start(removePassphrase);
+        }
+
+        private static void ExtractCertFromClientPFX()
+        {
+            ProcessStartInfo getPrivPub = new ProcessStartInfo(openSSL, "pkcs12 -in " + pfxFile + " -out privpub.pem");
+            ProcessStartInfo extractCert = new ProcessStartInfo(openSSL, "x509 -inform pem -outform pem -in privpub.pem -pubkey -out pub.pem");
+            Process.Start(getPrivPub);
+            Process.Start(extractCert);
+        }
+
     }
 }
