@@ -86,9 +86,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="HelperClasses\ViewModelLocator.cs" />
+    <Compile Include="Items\DownloadUrl.cs" />
+    <Compile Include="Models\DownloadUrlModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utilities\CustomCommand.cs" />
     <Compile Include="ViewModels\ApacheViewModel.cs" />
+    <Compile Include="ViewModels\DownloadCardViewModel.cs" />
     <Compile Include="ViewModels\InstallationCardViewModel.cs" />
     <Page Include="Views\Apache.xaml">
       <SubType>Designer</SubType>
@@ -154,7 +157,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -171,7 +173,6 @@
   <ItemGroup>
     <Resource Include="Resources\TransparentLogo.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
