@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 
 namespace SupportEngineerTool.HelperClasses {
-   public class ViewModelLocator {
-        private  static InstallationCardViewModel _installationCardViewModel = new InstallationCardViewModel();
+    public class ViewModelLocator {
+        private static InstallationCardViewModel _installationCardViewModel = new InstallationCardViewModel();
         private static ApacheViewModel _apacheViewModel = new ApacheViewModel();
-        
+        private static DownloadCardViewModel _downloadCardViewModel = new DownloadCardViewModel();
+
 
 
         public static InstallationCardViewModel InstallationCardViewModel {
@@ -19,6 +20,10 @@ namespace SupportEngineerTool.HelperClasses {
 
         public static ApacheViewModel ApacheViewModel {
             get { return _apacheViewModel; }
+        }
+
+        public static DownloadCardViewModel DownloadCardViewModel {
+            get { return _downloadCardViewModel; }
         }
     }
 }

@@ -65,6 +65,7 @@ namespace SupportEngineerTool.Models {
                              this.OpenPorts.Add(ParseLine(line));
                          }*/
                         if (line.Contains("OpenAsset_Install_Path")) {
+
                             this.CodeBase = ParseLine(line);
                         }
                         else if (line.Contains("OpenAsset_Data_Path")) {
@@ -99,6 +100,10 @@ namespace SupportEngineerTool.Models {
             }
         }
 
+        /// <summary>
+        /// Utilizes reflection to review whether we have empty Members that may not have been initialized or found in the OpenAsset config file.
+        /// </summary>
+        /// <param name="obj"></param>
         private void CoverAnyNullOrEmpty(object obj) {
             foreach (PropertyInfo property in obj.GetType().GetProperties()) {
                 if (property.PropertyType == typeof(string) && !property.Name.Contains("_")) {

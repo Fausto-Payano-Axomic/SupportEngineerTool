@@ -34,6 +34,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <!-- Quick Links Control !-->
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
             <StackPanel Orientation="Horizontal">
@@ -130,6 +131,13 @@
                     </Button>
                 </StackPanel>
             </Grid>
+        </GroupBox>
+        <!-- Download Urls Control !-->
+        <GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Header="Download Urls"
+                  Margin="0 0 8 0" Style="{StaticResource MaterialDesignCardGroupBox}">
+            <TreeView DataContext="{Binding DownloadCardViewModel, Source={StaticResource ViewModelLocator}}">
+             
+          </TreeView>
         </GroupBox>
     </Grid>
 </UserControl>
