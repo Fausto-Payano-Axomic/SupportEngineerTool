@@ -3,33 +3,57 @@ using System.Collections.Generic;
 using System;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
 using System.Linq;
 using System.Net.Sockets;
 
+
 namespace SupportEngineerTool.Models
 {
-    class SSLCertCreator
-    {
-        public static string pfxFile;
-     
-        public static string openSSL = @"c:\Apache\bin\openssl.exe";
-        public static string oaConfFile = @"C:\Apache\conf\OpenAsset.conf";
-        public static string httpdVHostFile = @"C:\Apache24\conf\extra\httpd-vhost.conf";
+    public class SSLCertCreator  //Implements the simpleton design pattern...like me.   *singleton
+    { 
 
-        //check openasset conf for any ssl configuration
-        public static void CheckForExistingOpenAssetConf()
+        public static string PFX = null;  //There can only be one instance of this variable.
+
+        private SSLCertCreator SSLObject = null;
+        string _openSSL = null;
+        string _oaConfFile = null;
+        string _httpdVHostFile = null;
+        bool sslPortActive;
+
+        private SSLCertCreator()
+        {
+             _openSSL = @"c:\Apache\bin\openssl.exe";
+             _oaConfFile = @"C:\Apache\conf\OpenAsset.conf";
+             _httpdVHostFile = @"C:\Apache24\conf\extra\httpd-vhost.conf";
+        }
+       
+        public SSLCertCreator GetSSLCertCreator() 
+        {
+            if (SSLObject == null)
+            {
+                SSLObject = new SSLCertCreator();
+                return SSLObject;
+            }
+            else
+            {
+                return SSLObject;
+            }      
+        }
+
+        public void CheckForExistingSSLConf()
         {
             bool found = false;
-
-            found = File.Exists(oaConfFile) ? true : false;
+            found = File.Exists(_oaConfFile) ? true : false;
 
             //TO DO: Check if ssl is configured in old apache: Parse and grab paths to current cert and keys
             if (found)
             {
-                StreamReader file = new StreamReader(oaConfFile);
+                StreamReader file = new StreamReader(_oaConfFile);
                 string line;
+           
                 while ((line = file.ReadLine()) != null)
                 {
                     if (line.Contains("SSLCertificateAuthorityCA"))
@@ -49,11 +73,56 @@ namespace SupportEngineerTool.Models
                         string[] sslKeyRow = line.Split(' ');
                         string sslKeyPath = sslKeyRow[1];
                     }
+
+                    if (line.Contains("Listen") && line.Contains("443") && (line.Contains("#") == false))
+                    {
+                        //This means port 443 is listening and ssl is enabled.  
+                        this.sslPortActive = true;
+                    }
                 }
             } 
         }
 
-        private static string CreateApacheRedirectEntry()
+        private void ConfigureOpenAssetConfFile()
+        {
+            /*
+             * 1. OpenAsset.conf to <filename>_<date and time>.conf.bak
+             * 2. Download OpenAsset conf file from cloud
+             * 3. Update Listening ports, codebase, and OpenAsset_Data folder paths using data from 
+             *    old file.
+             */
+        }
+        //For new apache httpd-vhost.conf file only. 
+        private void ConfigureApache24VHostsFile()
+        {
+            string NewProxyPassURL = CreateApacheRedirectEntry();   
+            string text = File.ReadAllText(_httpdVHostFile);
+            text = text.Replace("http://<Servers_IP>:8080/", NewProxyPassURL);
+            //replace the Listen <port> entry with Listen 443
+            text = text.Replace("<Listen port>", "443");
+            File.WriteAllText(text, _httpdVHostFile);
+        }
+
+        public void GenerateSelfSignedSslCert()
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo(_openSSL, "req - newkey rsa: 2048 - nodes - keyout server.key - x509 - days 730 -out server.cert");
+            Process.Start(startInfo);
+        }
+
+        public void GenerateCsr()
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo(_openSSL, "req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr");
+            Process.Start(startInfo);
+        }
+
+        public void ProcessClientPfxFile()
+        {
+            ExtractPrivateKeyFromClientPFXFile();
+            RemovePassPhraseFromPrivateKey();
+            ExtractCertFromClientPFX();
+        }
+
+        private string CreateApacheRedirectEntry()
         {
             string prefix = "http://";
             string port = ":8080";
@@ -63,56 +132,55 @@ namespace SupportEngineerTool.Models
             redirectURL = prefix + myIP + port + "/";
             return redirectURL;
         }
-        //For new apache httpd-vhost.conf file only. 
-        private static void ReplaceProxyByPassEntryInApache()
-        {
-            string NewProxyPassURL = CreateApacheRedirectEntry();   
 
-            string text = File.ReadAllText(httpdVHostFile);
-            text = text.Replace("some text", NewProxyPassURL);
-            File.WriteAllText("http://<Servers_IP>:8080/", httpdVHostFile);
+
+        private void ExtractPrivateKeyFromClientPFXFile()
+        {
+            ProcessStartInfo getPrivateKey = new ProcessStartInfo(_openSSL, "pkcs12 -in " + PFX + " -nocerts -out original_priv.pem");
+            Process.Start(getPrivateKey); 
         }
 
-        public static void GenerateSelfSignedSslCert()
+        private void RemovePassPhraseFromPrivateKey()
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo(openSSL, "req - newkey rsa: 2048 - nodes - keyout server.key - x509 - days 730 -out server.cert");
-            Process.Start(startInfo);
-        }
-
-        public static void GenerateCsr()
-        {
-            ProcessStartInfo startInfo = new ProcessStartInfo(openSSL, "req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr");
-            Process.Start(startInfo);
-        }
-
-        public static void ProcessClientPfxFile()
-        {
-            ExtractPrivateKeyFromClientPFXFile();
-            RemovePassPhraseFromPrivateKey();
-            ExtractCertFromClientPFX();
-        }
-        
-        private static void ExtractPrivateKeyFromClientPFXFile()
-        {
-
-            ProcessStartInfo getPrivateKey = new ProcessStartInfo(openSSL, "pkcs12 -in " + pfxFile + " -nocerts -out original_priv.pem");
-            Process.Start(getPrivateKey);
-       
-        }
-
-        private static void RemovePassPhraseFromPrivateKey()
-        {
-            ProcessStartInfo removePassphrase = new ProcessStartInfo(openSSL, "rsa -in original_priv.pem -out priv.pem");
+            ProcessStartInfo removePassphrase = new ProcessStartInfo(_openSSL, "rsa -in original_priv.pem -out priv.pem");
             Process.Start(removePassphrase);
         }
 
-        private static void ExtractCertFromClientPFX()
+        private void ExtractCertFromClientPFX()
         {
-            ProcessStartInfo getPrivPub = new ProcessStartInfo(openSSL, "pkcs12 -in " + pfxFile + " -out privpub.pem");
-            ProcessStartInfo extractCert = new ProcessStartInfo(openSSL, "x509 -inform pem -outform pem -in privpub.pem -pubkey -out pub.pem");
+            ProcessStartInfo getPrivPub = new ProcessStartInfo(_openSSL, "pkcs12 -in " + PFX + " -out privpub.pem");
+            ProcessStartInfo extractCert = new ProcessStartInfo(_openSSL, "x509 -inform pem -outform pem -in privpub.pem -pubkey -out pub.pem");
             Process.Start(getPrivPub);
             Process.Start(extractCert);
         }
 
+        private void MoveApacheFilesToFinalLocation()
+        {
+            /*TO DO: 
+            1. create a directory called backup in both the extra/conf and Apache2/conf folders if it doesn't exist
+            2. before making the move operation to the extra/conf directory, check if a file with the same name  
+               exists. If so rename the old file to <filename>_<insert date and time> and move it into the backup directory.
+            3. Move the new httpd-vhosts file into its new home.
+            */
+        }
+
+        
+
+ /****************** Im gonna put this in a separate class called Apache24Installer.***********************/
+        private void DownloadAndInstallApache24 ()
+        {
+            /*TO DO:
+             * 1. Check if system is 32 or 64 bit.
+             * 2. Check and Make sure update KB2999226 is installed
+             * !!! The rest happens IF AND ONLY IF that update is installed otherwise there is no point to any further !!!
+             * 3. Download Apache24 
+             * 4. Unzip and extract
+             * 5. Copy to C:\ drive
+             * 6. download and Run the vcredist_x64.exe (64-bit) or vcredist_x86.exe (32 bit)
+             * 7. Install the apache24 service
+             * 8. Check if the new service exists
+             * 9. The SSLCertCreator will handle the rest 
+             */
+        }
     }
 }
