@@ -18,10 +18,17 @@ namespace SupportEngineerTool.Models
         public static string PFX = null;  //There can only be one instance of this variable.
 
         private SSLCertCreator SSLObject = null;
-        string _openSSL = null;
-        string _oaConfFile = null;
-        string _httpdVHostFile = null;
-        bool sslPortActive;
+
+        string _openSSL = string.Empty;
+        string _oaConfFile = string.Empty;
+        string _httpdVHostFile = string.Empty;
+        string _codeBase = string.Empty;
+        string _dataFolder = string.Empty;
+        string _sslCertificateAuthorityCAPath = string.Empty;
+        string _sslCertificateFilePath = string.Empty;
+        string _sslCertificateKeyFilePath = string.Empty;
+        string _nonSSLPort = string.Empty;
+        bool _sslPortActive;
 
         private SSLCertCreator()
         {
@@ -43,7 +50,7 @@ namespace SupportEngineerTool.Models
             }      
         }
 
-        public void CheckForExistingSSLConf()
+        public void CheckExistingApache2Configuration()
         {
             bool found = false;
             found = File.Exists(_oaConfFile) ? true : false;
@@ -59,25 +66,42 @@ namespace SupportEngineerTool.Models
                     if (line.Contains("SSLCertificateAuthorityCA"))
                     {
                         string[] certificateAuthorityRow = line.Split(' ');
-                        string certificateAuthorityPath = certificateAuthorityRow[1];
+                        _sslCertificateAuthorityCAPath = certificateAuthorityRow[1];
                     }
-
-                    if (line.Contains("SSLCertificateFile"))
+                    else if (line.Contains("SSLCertificateFile"))
                     {
                         string[] certificateFileRow = line.Split(' ');
-                        string certificateAuthorityPath = certificateFileRow[1];
+                        _sslCertificateFilePath = certificateFileRow[1];
                     }
-
-                    if (line.Contains("SSLCertificateKeyFile"))
+                    else if (line.Contains("SSLCertificateKeyFile"))
                     {
                         string[] sslKeyRow = line.Split(' ');
-                        string sslKeyPath = sslKeyRow[1];
+                        _sslCertificateKeyFilePath = sslKeyRow[1];
+                    }
+                    else if (line.Contains("OpenAsset_Install_Path"))
+                    {
+                        string[] codeBaseRow = line.Split(' ');
+                        _codeBase = codeBaseRow[2];
+                    }
+                    else if (line.Contains("OpenAsset_Data_Path"))
+                    {
+                        string[] dataFolderRow = line.Split(' ');
+                        _dataFolder = dataFolderRow[2];
                     }
 
                     if (line.Contains("Listen") && line.Contains("443") && (line.Contains("#") == false))
                     {
                         //This means port 443 is listening and ssl is enabled.  
-                        this.sslPortActive = true;
+                        _sslPortActive = true;
+                    }
+
+                    if (line.Contains("Listen") && line.Contains("80") && (line.Contains("#") == false))
+                    { 
+                        _nonSSLPort = "80";
+                    }
+                    else if (line.Contains("Listen") && line.Contains("81") && (line.Contains("#") == false))
+                    {
+                        _nonSSLPort = "81";
                     }
                 }
             } 
