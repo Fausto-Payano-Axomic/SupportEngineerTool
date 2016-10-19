@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace SupportEngineerTool.Items {
     public class DownloadUrl {
-        private string Category { get; set; }
-        private Dictionary<string, string> LinkPair = new Dictionary<string, string>();
-
+        public string Category { get; set; }
+        public string DisplayedName { get; set; }
+        public string Link { get; set; }
+       
         public DownloadUrl(string category, string name, string link) {
             this.Category = category;
-            this.LinkPair.Add(name, link);
+            this.DisplayedName = name;
+            this.Link = link;
         }
     }
 }

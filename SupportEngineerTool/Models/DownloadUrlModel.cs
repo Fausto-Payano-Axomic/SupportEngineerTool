@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -15,10 +16,12 @@ namespace SupportEngineerTool.Models {
     public class DownloadUrlModel {
         private const string Url = @"https://dl.dropbox.com/s/sxzecgrxw28iyi0/DownloadUrls.xml?dl=0";
         public List<DownloadUrl> XmlOutput = new List<DownloadUrl>();
+        public List<DownloadCategory> CategorizedList = new List<DownloadCategory>();
 
 
         public DownloadUrlModel() {
             ParseXmlDownloadFile();
+            PopulateCategoryList();
         }
 
         private void ParseXmlDownloadFile() {
@@ -30,7 +33,7 @@ namespace SupportEngineerTool.Models {
                     var nodes = root.ChildNodes;
                     foreach (XmlNode node in nodes) {
                         foreach (XmlElement childElementNode in node) {
-                            
+
                             XmlOutput.Add(new DownloadUrl(node.Name, childElementNode.Name, childElementNode.InnerText));
                         }
                     }
@@ -41,6 +44,26 @@ namespace SupportEngineerTool.Models {
                 MessageBox.Show($"Exception:{xmlReadException}");
             }
 
+        }
+
+        private void PopulateCategoryList() {
+            
+            foreach (var downloadUrl in XmlOutput) {
+                if (CategorizedList.Any(x => x.CategoryName == downloadUrl.Category)) {
+                    var item = CategorizedList.FirstOrDefault(x => x.CategoryName == downloadUrl.Category);
+                    item?.ContentsOfCategory.Add(downloadUrl);
+                }
+                else {
+                    try {
+                        CategorizedList.Add(new DownloadCategory(downloadUrl.Category,
+                            new DownloadUrl(downloadUrl.Category, downloadUrl.DisplayedName, downloadUrl.Link)));
+                    }
+                    catch (Exception categoryAddError) {
+                        MessageBox.Show(categoryAddError.ToString());
+                    }
+                }
+
+            }
         }
     }
 }

@@ -60,20 +60,19 @@ namespace SupportEngineerTool.Models {
             try {
                 var contents = File.ReadAllLines(filePath);
                 foreach (var line in contents) {
-                    if (line != null) {
-                        /* if (line.Contains("Listen")) {
+                    if (line == null) continue;
+                    /* if (line.Contains("Listen")) {
                              this.OpenPorts.Add(ParseLine(line));
                          }*/
-                        if (line.Contains("OpenAsset_Install_Path")) {
+                    if (line.Contains("OpenAsset_Install_Path")) {
 
-                            this.CodeBase = ParseLine(line);
-                        }
-                        else if (line.Contains("OpenAsset_Data_Path")) {
-                            this.DataPath = ParseLine(line);
-                        }
-                        else if (line.Contains("OpenAsset_Database_Name")) {
-                            this.DatabaseName = ParseLine(line);
-                        }
+                        this.CodeBase = ParseLine(line);
+                    }
+                    else if (line.Contains("OpenAsset_Data_Path")) {
+                        this.DataPath = ParseLine(line);
+                    }
+                    else if (line.Contains("OpenAsset_Database_Name")) {
+                        this.DatabaseName = ParseLine(line);
                     }
                 }
                 

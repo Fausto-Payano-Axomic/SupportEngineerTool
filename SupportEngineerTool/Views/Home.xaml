@@ -1,5 +1,4 @@
-﻿
-    <UserControl x:Class="SupportEngineerTool.CustomControls.Home"
+﻿<UserControl x:Class="SupportEngineerTool.CustomControls.Home"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,6 +7,7 @@
              xmlns:local="clr-namespace:SupportEngineerTool.CustomControls"
              mc:Ignorable="d" 
              xmlns:dc="clr-namespace:SupportEngineerTool.ViewModels"
+             xmlns:r="clr-namespace:SupportEngineerTool.Items"
              d:DesignHeight="300" d:DesignWidth="300"
                  DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=InstallationCardViewModel}">
     <UserControl.Resources>
@@ -34,7 +34,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <!-- Quick Links Control !-->
         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
             <StackPanel Orientation="Horizontal">
@@ -135,9 +135,17 @@
         <!-- Download Urls Control !-->
         <GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Header="Download Urls"
                   Margin="0 0 8 0" Style="{StaticResource MaterialDesignCardGroupBox}">
-            <TreeView DataContext="{Binding DownloadCardViewModel, Source={StaticResource ViewModelLocator}}">
-             
-          </TreeView>
+            <TreeView DataContext="{Binding DownloadCardViewModel, Source={StaticResource ViewModelLocator}}"
+                      ItemsSource="{Binding ObservableDownloadUrls}" >
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding ContentsOfCategory}" DataType="{x:Type r:DownloadCategory}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=CategoryName}"/>
+                            <TextBlock Text="{Binding Path= DisplayedName}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
         </GroupBox>
     </Grid>
 </UserControl>
