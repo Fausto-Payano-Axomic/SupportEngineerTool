@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModel="clr-namespace:SupportEngineerTool.ViewModels"
         xmlns:items="clr-namespace:SupportEngineerTool.Items"
-        xmlns:custom="clr-namespace:SupportEngineerTool.CustomControls"
+        xmlns:views="clr-namespace:SupportEngineerTool.Views"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -43,22 +43,22 @@
                         </ListBox.ItemTemplate>
                         <items:Item Name="Home">
                             <items:Item.Content>
-                                <custom:Home/>
+                                <views:Home/>
                             </items:Item.Content>
                         </items:Item>
                         <items:Item Name="Patches">
                             <items:Item.Content>
-                                <custom:Patches/>
+                                <views:Patches/>
                             </items:Item.Content>
                         </items:Item>
                         <items:Item Name="Tickets">
                             <items:Item.Content>
-                                <custom:Tickets/>
+                                <views:Tickets/>
                             </items:Item.Content>
                         </items:Item>
                         <items:Item Name="Apache">
                             <items:Item.Content>
-                                <custom:Apache/>
+                                <views:Apache/>
                             </items:Item.Content>
                         </items:Item>
                     </ListBox>
