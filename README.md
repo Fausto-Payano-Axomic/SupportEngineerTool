@@ -3,7 +3,7 @@
 A tool intended to save Support engineers valuable time on tasks which, while not difficult, are time consuming. This is a project in collaboration with Juan Estrella, and is intended as a learning excercise with the goal of producing a powerful, safe, tool for day-to-day tasks.
 
 
-![alt tag](http://i.imgur.com/QsT4ieW.jpg)
+![alt tag](http://imgur.com/Anw6eFM)
 
 ## Tests
 
