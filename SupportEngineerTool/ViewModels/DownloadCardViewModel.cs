@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using SupportEngineerTool.Items;
 using SupportEngineerTool.Models;
@@ -15,6 +16,8 @@ namespace SupportEngineerTool.ViewModels {
         private DownloadUrlModel downloadUrlModel;
         private ObservableCollection<DownloadCategory> _observableDownloadUrls =
         new ObservableCollection<DownloadCategory>();
+
+        public DownloadUrl SelectedDownload { get; set; }
 
         public ICommand DownloadCommand { get; set; }
 
@@ -40,11 +43,14 @@ namespace SupportEngineerTool.ViewModels {
         }
 
         private void InitiateDownload(object obj) {
-            //TODO: Implement downloading, async? Background worker so not to lock UI?
+            MessageBox.Show($"{this.SelectedDownload.Link}");
         }
 
         private bool CanInitiateDownload(object obj) {
-            return true;
+            if (SelectedDownload != null) {
+                return true;
+            }
+            return false;
         }
 
         private void OnNotifyCollectionChanged(NotifyCollectionChangedEventArgs args) {
