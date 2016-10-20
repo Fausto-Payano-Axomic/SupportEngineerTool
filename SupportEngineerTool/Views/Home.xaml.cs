@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using SupportEngineerTool.HelperClasses;
+using SupportEngineerTool.Items;
 
 namespace SupportEngineerTool.Views {
     /// <summary>
@@ -22,5 +25,8 @@ namespace SupportEngineerTool.Views {
             Process.Start("https://axomic.zendesk.com");
         }
 
+        private void TreeViewControl_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
+            ViewModelLocator.DownloadCardViewModel.SelectedItem = TreeViewControl.SelectedItem as DownloadUrl;
+        }
     }
 }

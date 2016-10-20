@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Serilog;
 using SupportEngineerTool.Items;
 using SupportEngineerTool.Models;
+using SupportEngineerTool.Services;
 using SupportEngineerTool.Utilities;
 
 namespace SupportEngineerTool.ViewModels {
@@ -17,7 +20,7 @@ namespace SupportEngineerTool.ViewModels {
         private ObservableCollection<DownloadCategory> _observableDownloadUrls =
         new ObservableCollection<DownloadCategory>();
 
-        public DownloadUrl SelectedDownload { get; set; }
+        public DownloadUrl SelectedItem { get; set; }
 
         public ICommand DownloadCommand { get; set; }
 
@@ -43,11 +46,18 @@ namespace SupportEngineerTool.ViewModels {
         }
 
         private void InitiateDownload(object obj) {
-            MessageBox.Show($"{this.SelectedDownload.Link}");
+            try {
+                FileDownloader downloader = new FileDownloader(SelectedItem.Link);
+                downloader.DownloadFile("");
+                }
+            
+            catch (Exception downloadFileException) {
+                Log.Logger.Error($"Error downloading file from link {this.SelectedItem.Link}, stack trace printout: {downloadFileException}");
+            }
         }
 
         private bool CanInitiateDownload(object obj) {
-            if (SelectedDownload != null) {
+            if (SelectedItem != null) {
                 return true;
             }
             return false;

@@ -135,21 +135,22 @@
         <!-- Download Urls Control !-->
         <GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Header="Download Urls"
                   Margin="0 0 8 0" Style="{StaticResource MaterialDesignCardGroupBox}">
-            <TreeView DataContext="{Binding DownloadCardViewModel, Source={StaticResource ViewModelLocator}}"
-                      ItemsSource="{Binding ObservableDownloadUrls}" FontSize="11">
+            <TreeView Name="TreeViewControl" DataContext="{Binding DownloadCardViewModel, Source={StaticResource ViewModelLocator}}"
+                      ItemsSource="{Binding ObservableDownloadUrls}" FontSize="11" SelectedItemChanged="TreeViewControl_OnSelectedItemChanged">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="ItemDoubleClick">
+                    <i:EventTrigger EventName="SelectedItemChanged">
                         <i:InvokeCommandAction Command="{Binding DownloadCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding ContentsOfCategory}" DataType="{x:Type r:DownloadCategory}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=CategoryName}"/>
+                            <TextBlock Text="{Binding Path= CategoryName}"/>
                             <TextBlock Text="{Binding Path= DisplayedName}"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
+ 
             </TreeView>
         </GroupBox>
     </Grid>
