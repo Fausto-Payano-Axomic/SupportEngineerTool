@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Serilog;
+using SupportEngineerTool.HelperClasses;
 using SupportEngineerTool.Models;
-using SupportEngineerTool.Utilities;
 
 namespace SupportEngineerTool.ViewModels {
     public class InstallationCardViewModel : INotifyPropertyChanged {

@@ -13,7 +13,7 @@ using Serilog;
 
 namespace SupportEngineerTool.Services {
     public class FileDownloader {
-        private string DownloadLink { get; set; }
+        private string DownloadLink { get; }
         private string SaveLocation { get; set; }
 
         public FileDownloader(string downloadLink) {

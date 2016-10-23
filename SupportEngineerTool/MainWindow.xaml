@@ -12,7 +12,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{StaticResource MaterialDesignFont}"
-        ResizeMode="NoResize"
+        ResizeMode="CanResizeWithGrip"
         FontSize="16"
         Title="S.E.T. Support Engineer Tool" Height="800" Width="1005" Icon="Resources/TransparentLogo.ico">
     <Window.Resources>
@@ -24,9 +24,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
- 
+
     <materialDesign:DialogHost Identifier="RootDialog">
-        
+
         <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <materialDesign:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="212">
@@ -66,10 +66,9 @@
             </materialDesign:DrawerHost.LeftDrawerContent>
 
             <DockPanel>
-                
                 <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                           Mode="PrimaryMid" DockPanel.Dock="Top" >
-                    <DockPanel Height="71">
+                    <DockPanel Height="Auto">
                         <ToggleButton DockPanel.Dock="Left" Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False" x:Name="MenuToggleButton"/>
                         <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                             <StackPanel>
@@ -78,14 +77,14 @@
                         </materialDesign:PopupBox>
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Support Engineer Tool
                         </TextBlock>
-                        
-               </DockPanel>
+
+                    </DockPanel>
                 </materialDesign:ColorZone>
                 <ContentControl Margin="16" Content="{Binding ElementName=TopicsListBox, Path=SelectedItem.Content}" />
             </DockPanel>
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
-    
-    
+
+
 
 </Window>

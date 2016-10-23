@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Serilog;
+using SupportEngineerTool.HelperClasses;
 using SupportEngineerTool.Items;
 using SupportEngineerTool.Models;
 using SupportEngineerTool.Services;
-using SupportEngineerTool.Utilities;
 
 namespace SupportEngineerTool.ViewModels {
     public class DownloadCardViewModel : INotifyCollectionChanged {
@@ -30,13 +30,14 @@ namespace SupportEngineerTool.ViewModels {
         }
         public DownloadCardViewModel() {
             downloadUrlModel = new DownloadUrlModel();
-
-            foreach (var downloadCategory in downloadUrlModel.CategorizedList) {
-                _observableDownloadUrls.Add(downloadCategory);
-                this.OnNotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
-                    downloadCategory));
+            if (downloadUrlModel.SuccessfullyDownloadedXml) {
+                foreach (var downloadCategory in downloadUrlModel.CategorizedList) {
+                    _observableDownloadUrls.Add(downloadCategory);
+                    this.OnNotifyCollectionChanged(
+                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
+                            downloadCategory));
+                }
             }
-
             LoadCommands();
 
         }
@@ -52,7 +53,7 @@ namespace SupportEngineerTool.ViewModels {
                 }
             
             catch (Exception downloadFileException) {
-                Log.Logger.Error($"Error downloading file from link {this.SelectedItem.Link}, stack trace printout: {downloadFileException}");
+                Log.Logger.Error($"Error downloading file from link {this.SelectedItem.Link}, Stacktrace: {downloadFileException}");
             }
         }
 

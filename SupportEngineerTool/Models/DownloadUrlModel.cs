@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
+using Serilog;
 using SupportEngineerTool.Items;
 using SupportEngineerTool.Properties;
 
@@ -17,6 +18,7 @@ namespace SupportEngineerTool.Models {
         private const string Url = @"https://dl.dropbox.com/s/sxzecgrxw28iyi0/DownloadUrls.xml?dl=0";
         public List<DownloadUrl> XmlOutput = new List<DownloadUrl>();
         public List<DownloadCategory> CategorizedList = new List<DownloadCategory>();
+        public bool SuccessfullyDownloadedXml { get; set; }
 
 
         public DownloadUrlModel() {
@@ -37,11 +39,18 @@ namespace SupportEngineerTool.Models {
                             XmlOutput.Add(new DownloadUrl(node.Name, childElementNode.Name, childElementNode.InnerText));
                         }
                     }
+                    SuccessfullyDownloadedXml = true;
                 }
             }
             //TODO: Rework exception with serilog structured events.
+            catch (WebException connectivityIssue) {
+                Log.Logger.Error($"Internet connectivity may not be active or Dropbox may be down: StackException \n {connectivityIssue} \n \n " +
+                                 $"InnerException: \n {connectivityIssue.Response}");
+                SuccessfullyDownloadedXml = false;
+            }
             catch (Exception xmlReadException) {
-                MessageBox.Show($"Exception:{xmlReadException}");
+                Log.Logger.Error($"StackTrace: \n {xmlReadException}");
+                SuccessfullyDownloadedXml = false;
             }
 
         }

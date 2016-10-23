@@ -12,49 +12,17 @@ using System.Threading.Tasks;
 using Serilog;
 using SupportEngineerTool.Annotations;
 
-
+//TODO: Change this class to a thread-safe singleton so it can be accesed by the Apache viewmodel as well, easily.
 namespace SupportEngineerTool.Models {
+    public class OpenAssetConfigurationFile {
+        public string CodeBase { get; set; }
+        public string DataPath { get; set; }
+        public string DatabaseName { get; set; }
 
-    //This class may not need to notify anyone that its property changed. Could probably remove that unless its implemented as part of the ApacheViewModel.
-
-    public class OpenAssetConfigurationFile : INotifyPropertyChanged {
-        private string _codeBase { get; set; }
-        private string _dataPath { get; set; }
-       //public List<string> openPorts { get; set; }
-        private string _databaseName { get; set; }
-
-        #region Public_Properties
-        public string CodeBase {
-            get { return _codeBase; }
-            set {
-                _codeBase = value;
-                NotifyPropertyChanged();
-            }
-
-        }
-        public string DataPath {
-            get { return _dataPath; }
-            set {
-                _dataPath = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string DatabaseName {
-            get { return _databaseName; }
-            set {
-                _databaseName = value;
-                NotifyPropertyChanged();
-            }
-        }
-        #endregion
-        /* public ObservableCollection<string> OpenPorts {get { return openPorts; }
-             set[]
-
-         }*/
         public OpenAssetConfigurationFile(string filePath = "C:/Apache2/conf/OpenAsset.conf") {
             ReadConfigurationFile(filePath);
         }
+
         public void ReadConfigurationFile(string filePath = "C:/Apache2/conf/OpenAsset.conf") {
 
             try {
@@ -75,7 +43,7 @@ namespace SupportEngineerTool.Models {
                         this.DatabaseName = ParseLine(line);
                     }
                 }
-                
+
             }
 
             catch (Exception readConfigFileException) {
@@ -85,6 +53,7 @@ namespace SupportEngineerTool.Models {
             CoverAnyNullOrEmpty(this);
 
         }
+
         private string ParseLine(string line) {
             string replacedDebug = (line.Replace(" ", ","));
 
@@ -106,27 +75,11 @@ namespace SupportEngineerTool.Models {
         private void CoverAnyNullOrEmpty(object obj) {
             foreach (PropertyInfo property in obj.GetType().GetProperties()) {
                 if (property.PropertyType == typeof(string) && !property.Name.Contains("_")) {
-                    if(string.IsNullOrEmpty((string)property.GetValue(obj))) {
+                    if (string.IsNullOrEmpty((string)property.GetValue(obj))) {
                         property.SetValue(obj, "No Information Available", null);
                     }
                 }
             }
         }
-           
-
-        #region NotifyPropertyChanged
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "") {
-            if (PropertyChanged != null) {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
     }
 }

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace SupportEngineerTool.Utilities {
+namespace SupportEngineerTool.HelperClasses {
     public class CustomCommand : ICommand {
         private Action<object> execute;
         private Predicate<object> canExecute;
