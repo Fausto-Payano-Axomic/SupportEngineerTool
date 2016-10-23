@@ -6,30 +6,52 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Serilog;
+using SupportEngineerTool.HelperClasses;
 using SupportEngineerTool.Models;
 
 namespace SupportEngineerTool.ViewModels {
-    public class InstallationCardViewModel : INotifyCollectionChanged, INotifyPropertyChanged {
-        public InstallInformation installInfo;
-        private string _installFolderPath;
+    public class InstallationCardViewModel : INotifyPropertyChanged {
+        private InstallInformationModel installInfo;
+        private string _codeBase;
         private string _dataFolder;
         private string _imageStore;
 
+        public ICommand RefreshCommand { get; set; }
+
         public InstallationCardViewModel() {
-            installInfo = new InstallInformation();
-            InstallFolderPath = installInfo.InstallFolder;
+            installInfo = new InstallInformationModel();
+            CodeBase = installInfo.CodeBase;
             DataFolder = installInfo.DataStore;
             ImageStore= installInfo.ImageStore;
+            LoadCommands();
 
 
         }
 
+        private void LoadCommands () {
+            RefreshCommand = new CustomCommand(RefreshInformation, CanRefreshInformation);
+        }
+
+        private void RefreshInformation(object obj) {
+            installInfo.RefreshConfigFile();
+            CodeBase = installInfo.CodeBase;
+            DataFolder = installInfo.DataStore;
+            ImageStore = installInfo.ImageStore;
+        }
+
+        private bool CanRefreshInformation(object obj) {
+            return true;
+        }
+
+
         #region Notify_Declerations
 
-        public string InstallFolderPath {
-            get { return _installFolderPath; }
+        public string CodeBase {
+            get { return _codeBase; }
             set {
-                _installFolderPath = value;
+                _codeBase = value;
                 NotifyPropertyChanged();
             }
         }
@@ -50,6 +72,21 @@ namespace SupportEngineerTool.ViewModels {
             }
         }
 
+        public void UpdateConfigInformation() {
+            try {
+                installInfo.RefreshConfigFile();
+                CodeBase = installInfo.CodeBase;
+                DataFolder = installInfo.DataStore;
+                ImageStore = installInfo.ImageStore;
+                Log.Logger.Information("Updated new configuration information.");
+            }
+            catch(Exception failedUpdateConfigInformation) {
+                Log.Logger.Error(failedUpdateConfigInformation, "Failed to update configuration settings");
+            }
+        }
+
+
+       
         #endregion
         #region INotifyCollectionChanged
 
@@ -61,6 +98,7 @@ namespace SupportEngineerTool.ViewModels {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         #endregion
         #region INotifyPropertyChanged
+
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "") {
             if (PropertyChanged != null) {

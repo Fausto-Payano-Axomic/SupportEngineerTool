@@ -67,6 +67,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -85,21 +86,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HelperClasses\ViewModelLocator.cs" />
+    <Compile Include="Items\DownloadCategory.cs" />
+    <Compile Include="Items\DownloadUrl.cs" />
+    <Compile Include="Models\DownloadUrlModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Services\FileDownloader.cs" />
+    <Compile Include="HelperClasses\CustomCommand.cs" />
+    <Compile Include="ViewModels\ApacheViewModel.cs" />
+    <Compile Include="ViewModels\DownloadCardViewModel.cs" />
     <Compile Include="ViewModels\InstallationCardViewModel.cs" />
-    <Page Include="CustomControls\Apache.xaml">
+    <Compile Include="Views\Tickets.xaml.cs">
+      <DependentUpon>Tickets.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\Apache.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControls\Home.xaml">
+    <Page Include="Views\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControls\Patches.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CustomControls\Tickets.xaml">
+    <Page Include="Views\Patches.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -111,17 +119,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CustomControls\Apache.xaml.cs">
+    <Compile Include="Views\Apache.xaml.cs">
       <DependentUpon>Apache.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\Home.xaml.cs">
+    <Compile Include="Views\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\Patches.xaml.cs">
+    <Compile Include="Views\Patches.xaml.cs">
       <DependentUpon>Patches.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CustomControls\Tickets.xaml.cs">
-      <DependentUpon>Tickets.xaml</DependentUpon>
     </Compile>
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\NotifyPropertyChangedExtension.cs" />
@@ -129,9 +134,13 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Tickets.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\InstallInformation.cs" />
+    <Compile Include="Models\InstallInformationModel.cs" />
     <Compile Include="Models\OpenAssetConfigurationFile.cs" />
     <Compile Include="Models\SSLCertCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -167,9 +176,7 @@
   <ItemGroup>
     <Resource Include="Resources\TransparentLogo.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="HelperClasses\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

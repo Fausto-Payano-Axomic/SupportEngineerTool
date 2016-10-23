@@ -1,0 +1,23 @@
+<DownloadAddresses>
+  
+  <Installer>
+    <OpenAssetInstaller>http://static.openasset.com/support/OpenAsset_Installer_WINDOWS_9_1_8.zip</OpenAssetInstaller>
+  </Installer>
+
+  <Component>
+    
+    <ImageMagick>http://static.openasset.com/support/ImageMagick-6.9.2-0-Q8-x86-dll_Perl510.zip</ImageMagick>
+    <x32BitScheduler>http://static.openasset.com/support/OpenAsset.Scheduler.Setup_Latest_x86.msi</x32BitScheduler>
+    <x64BitScheduler>http://static.openasset.com/support/OpenAsset.Scheduler.Setup_Latest_x64.msi</x64BitScheduler>
+    
+    
+  </Component>
+
+  <Dependency>
+    
+    <JSON-XS>http://static.openasset.com/support/JSON-XS.zip</JSON-XS>
+    <SQL-Abstract>http://static.openasset.com/support/SQL-Abstract-Standalone.zip</SQL-Abstract>
+    
+  </Dependency>
+   
+ </DownloadAddresses>
