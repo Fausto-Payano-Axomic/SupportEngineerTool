@@ -110,6 +110,19 @@
                          Text="{Binding ImageStore, Mode=OneWay}" FontSize="12" DataContext="{Binding InstallationCardViewModel, Source={StaticResource ViewModelLocator}}"
                          MaxLength="60">
                         </TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="SSL Certificate Auth" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" 
+                         Text="{Binding SslCertAuth, Mode=OneWay, FallbackValue='No SSL Detected'}" FontSize="12" DataContext="{Binding InstallationCardViewModel, Source={StaticResource ViewModelLocator}}"
+                         MaxLength="60">
+                        </TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="SSL Certificate File" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" 
+                         Text="{Binding SslCertFile, Mode=OneWay, FallbackValue='No SSL Detected'}" FontSize="12" DataContext="{Binding InstallationCardViewModel, Source={StaticResource ViewModelLocator}}"
+                         MaxLength="60">
+                        </TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="SSL Certificate Key" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" 
+                         Text="{Binding SslCertKey, Mode=OneWay, FallbackValue='No SSL Detected'}" FontSize="12" DataContext="{Binding InstallationCardViewModel, Source={StaticResource ViewModelLocator}}"
+                         MaxLength="60">
+                        </TextBox>
+                        
                     </StackPanel>
 
 

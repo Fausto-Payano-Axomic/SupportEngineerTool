@@ -91,6 +91,7 @@
     <Compile Include="Items\DownloadUrl.cs" />
     <Compile Include="Models\DownloadUrlModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Services\ApacheConfigureService.cs" />
     <Compile Include="Services\FileDownloader.cs" />
     <Compile Include="HelperClasses\CustomCommand.cs" />
     <Compile Include="ViewModels\ApacheViewModel.cs" />

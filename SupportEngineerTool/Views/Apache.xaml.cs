@@ -43,7 +43,6 @@ namespace SupportEngineerTool.Views {
                     //I still need to add the path to another textbox so the user can see the 
                     //file that will be processed
                     MessageBox.Show(filename);
-                    Models.SSLCertCreator.PFX = filename;
                 }
                 else {
                     MessageBox.Show("Error: " + extension + " is not a valid file type.");
