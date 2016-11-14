@@ -31,6 +31,7 @@ namespace SupportEngineerTool.Services {
             return redirectURL;
         }
         private static void MoveApacheFilesToFinalLocation() {
+            /*TODO: 
             1. create a directory called backup in both the extra/conf and Apache2/conf folders if it doesn't exist
             2. before making the move operation to the extra/conf directory, check if a file with the same name  
                exists. If so rename the old file to <filename>_<insert date and time> and move it into the backup directory.
@@ -39,6 +40,7 @@ namespace SupportEngineerTool.Services {
         }
         //This can be handled by EasyDownloader and we can use FileDownloader.cs to download
         private static void DownloadAndInstallApache24() {
+            /*TODO:
              * 1. Check if system is 32 or 64 bit.
              * 2. Check and Make sure update KB2999226 is installed
              * !!! The rest happens IF AND ONLY IF that update is installed otherwise there is no point to any further !!!

@@ -49,7 +49,7 @@ namespace SupportEngineerTool.ViewModels {
         private void InitiateDownload(object obj) {
             try {
                 FileDownloader downloader = new FileDownloader(SelectedItem.Link);
-                downloader.DownloadFile("");
+                downloader.DownloadFile();
                 }
             
             catch (Exception downloadFileException) {
