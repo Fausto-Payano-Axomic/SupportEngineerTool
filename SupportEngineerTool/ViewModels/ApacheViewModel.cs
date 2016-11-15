@@ -21,6 +21,7 @@ namespace SupportEngineerTool.ViewModels {
     /// 
     public class ApacheViewModel : INotifyPropertyChanged {
         public SslCertCreator _sslCertCreator;
+        private FileInfo _pfxFile { get; set; }
         public ICommand DragDropCommand { get; set; }
 
         public ApacheViewModel() {
@@ -32,39 +33,61 @@ namespace SupportEngineerTool.ViewModels {
             DragDropCommand = new CustomCommand(DragAndDropRead, CanDragDrop);
         }
 
+
+        /// <summary>
+        /// DragAndDrop file is read after CanDragDrop bool indicates its the proper type.
+        /// </summary>
+        /// <param name="obj"></param>
         private void DragAndDropRead(object obj) {
             try {
-                var file = obj as FileInfo;
-                if (file != null) {
-                    string fileName = file.Name;
-                    MessageBox.Show($"Filename: {fileName}");
+                if (obj != null) {
+                    var file = (string)(obj as DragEventArgs).Data.GetData(DataFormats.FileDrop);
+                    FileInfo draggedFile = new FileInfo(file);
+
+                    }
                 }
-            }
             catch (Exception dragFileException) {
                 MessageBox.Show(dragFileException.ToString());
             }
         }
-
+        /// <summary>
+        /// Executed when file is drag and dropped and command is fired. Determines whether file type
+        /// extension is a valid type.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         private bool CanDragDrop(object obj) {
             try {
-                var file = obj as FileInfo;
-
-                if (file != null && file.Extension == ".pdf") {
-                    return true;
+                if (obj != null) {
+                    string file = (string)(obj as DragEventArgs).Data.GetData(DataFormats.FileDrop);
+                    FileInfo draggedFile = new FileInfo(file);
+                    if (draggedFile.Extension == ".pdf") {
+                        return true;
+                    }
                 }
                 return false;
             }
-            catch (Exception fileTypeCheckException) {
+            catch
+                (Exception fileTypeCheckException) {
                 MessageBox.Show(fileTypeCheckException.ToString());
                 return false;
             }
         }
+
+        public FileInfo PfxFile {
+            get { return _pfxFile; }
+            set {
+                _pfxFile = value;
+                NotifyPropertyChanged();
+            }
+        }
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "") {
+            if (PropertyChanged != null) {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
         #endregion
     }
