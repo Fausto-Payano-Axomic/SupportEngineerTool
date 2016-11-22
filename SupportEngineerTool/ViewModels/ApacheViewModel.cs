@@ -39,16 +39,21 @@ namespace SupportEngineerTool.ViewModels {
         /// </summary>
         /// <param name="obj"></param>
         private void DragAndDropRead(object obj) {
-            try {
-                if (obj != null) {
-                    var file = (string)(obj as DragEventArgs).Data.GetData(DataFormats.FileDrop);
-                    FileInfo draggedFile = new FileInfo(file);
+            MessageBox.Show("This feature is currently disabled. Pending update.");
+            //TODO: Work out the Apache process
+            //    try {
+            //        if (obj != null) {
+            //            var file = (string[])(obj as DragEventArgs).Data.GetData(DataFormats.FileDrop);
+            //            PfxFile = new FileInfo(file[0]);
+            //            this._sslCertCreator.Pfx = this.PfxFile.FullName;
+            //            this._sslCertCreator.ProcessClientPfxFile();
+            //        }
+            //        }
+            //    catch (Exception dragFileException) {
+            //        MessageBox.Show(dragFileException.ToString());
+            //    }
 
-                    }
-                }
-            catch (Exception dragFileException) {
-                MessageBox.Show(dragFileException.ToString());
-            }
+
         }
         /// <summary>
         /// Executed when file is drag and dropped and command is fired. Determines whether file type
@@ -59,8 +64,8 @@ namespace SupportEngineerTool.ViewModels {
         private bool CanDragDrop(object obj) {
             try {
                 if (obj != null) {
-                    string file = (string)(obj as DragEventArgs).Data.GetData(DataFormats.FileDrop);
-                    FileInfo draggedFile = new FileInfo(file);
+                    string[] file = (string[])(obj as DragEventArgs).Data.GetData(DataFormats.FileDrop);
+                    FileInfo draggedFile = new FileInfo(file[0]);
                     if (draggedFile.Extension == ".pdf") {
                         return true;
                     }

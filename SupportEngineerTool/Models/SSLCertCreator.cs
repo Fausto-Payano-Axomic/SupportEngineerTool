@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Linq;
 using System.Net.Sockets;
+using System.Windows;
 using SupportEngineerTool.HelperClasses;
 using SupportEngineerTool.Properties;
 
@@ -95,6 +96,9 @@ namespace SupportEngineerTool.Models {
             ProcessStartInfo extractCert = new ProcessStartInfo(OpenSsl, "x509 -inform pem -outform pem -in privpub.pem -pubkey -out pub.pem");
             Process.Start(getPrivPub);
             Process.Start(extractCert);
+#if DEBUG
+            MessageBox.Show("Pfx processing complete.");
+#endif
         }
         #endregion
     }
