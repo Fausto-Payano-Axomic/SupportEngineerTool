@@ -18,22 +18,37 @@ namespace SupportEngineerTool.Models {
         public string CodeBase { get; set; }
         public string DataPath { get; set; }
         public string DatabaseName { get; set; }
+        public string SslCertificateAuthority { get; set; }
+        public string SslCertificateFile { get; set; }
+        public string SslCertificateKey { get; set; }
+
+        public List<string> Ports = new List<string>();
+
 
         public OpenAssetConfigurationFile(string filePath = "C:/Apache2/conf/OpenAsset.conf") {
             ReadConfigurationFile(filePath);
         }
-
         public void ReadConfigurationFile(string filePath = "C:/Apache2/conf/OpenAsset.conf") {
 
+            //Perhaps looping through a dictionary may be a better approach here for each line, for less copy pasta.
             try {
                 var contents = File.ReadAllLines(filePath);
                 foreach (var line in contents) {
-                    if (line == null) continue;
-                    /* if (line.Contains("Listen")) {
-                             this.OpenPorts.Add(ParseLine(line));
-                         }*/
-                    if (line.Contains("OpenAsset_Install_Path")) {
+                    if (line == null && !(line.StartsWith("#"))) continue;
 
+                    if (line.Contains("SSLCertificateAuthorityCA")) {
+                        this.SslCertificateAuthority = ParseLine(line);
+                    }
+                    else if (line.Contains("SSLCertificateFile")) {
+                        this.SslCertificateFile = ParseLine(line);
+                    }
+                    else if (line.Contains("SSLCertificateKeyFile")) {
+                        this.SslCertificateKey = ParseLine(line);
+                    }
+                    else if (line.Contains("Listen")) {
+                        this.Ports.Add(line.Split(' ')[1]);
+                    }
+                    else if (line.Contains("OpenAsset_Install_Path")) {
                         this.CodeBase = ParseLine(line);
                     }
                     else if (line.Contains("OpenAsset_Data_Path")) {
@@ -53,13 +68,18 @@ namespace SupportEngineerTool.Models {
             CoverAnyNullOrEmpty(this);
 
         }
-
         private string ParseLine(string line) {
             string replacedDebug = (line.Replace(" ", ","));
 
             string[] stringContainer = replacedDebug.Split(new string[] { "," },
                 StringSplitOptions.RemoveEmptyEntries);
-            if (stringContainer.Length < 2 && stringContainer.Contains("Listen")) {
+
+            /* Need to make sure that the new additional OR check actually 
+             * doesn't produce unwanted results. Breakpoint should be set here and tested
+             * thoroughly.
+            */
+
+            if (stringContainer.Length < 2 && (stringContainer.Contains("Listen")) || (stringContainer.Contains("SSL"))) {
                 return stringContainer[1];
             }
             else {
@@ -67,7 +87,6 @@ namespace SupportEngineerTool.Models {
                 return stringContainer[2];
             }
         }
-
         /// <summary>
         /// Utilizes reflection to review whether we have empty Members that may not have been initialized or found in the OpenAsset config file.
         /// </summary>

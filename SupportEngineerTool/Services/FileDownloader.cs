@@ -38,7 +38,7 @@ namespace SupportEngineerTool.Services {
             }
         }
 
-        public void DownloadFile(string saveFileName) {
+        public void DownloadFile(string saveFileName = "") {
             BackgroundWorker bgWorker = new BackgroundWorker();
             bgWorker.DoWork += DoDownloadComponent;
             bgWorker.RunWorkerCompleted += DownloadComplete;
