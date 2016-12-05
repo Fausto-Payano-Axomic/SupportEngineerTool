@@ -20,8 +20,10 @@ namespace SupportEngineerTool.ViewModels {
         private string _sslCertAU;
         private string _sslCertFile;
         private string _sslCertKey;
+        private string _versionNumber;
 
         public ICommand RefreshCommand { get; set; }
+ 
 
         public InstallationCardViewModel() {
             installInfo = new InstallInformationModel();
@@ -36,6 +38,8 @@ namespace SupportEngineerTool.ViewModels {
 
         private void LoadCommands() {
             RefreshCommand = new CustomCommand(RefreshInformation, CanRefreshInformation);
+            VersionNumber = GetPublishedVersion();
+
         }
         private void RefreshInformation(object obj) {
             installInfo.RefreshConfigFile();
@@ -93,6 +97,13 @@ namespace SupportEngineerTool.ViewModels {
             }
         }
 
+        public string VersionNumber {
+            get { return _versionNumber; }
+            set {
+                _versionNumber = value;
+                NotifyPropertyChanged();
+            }
+        }
         public void UpdateConfigInformation() {
             try {
                 installInfo.RefreshConfigFile();
@@ -129,6 +140,13 @@ namespace SupportEngineerTool.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
+        private string GetPublishedVersion() {
+            if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed) {
+                return System.Deployment.Application.ApplicationDeployment.CurrentDeployment.
+                    CurrentVersion.ToString();
+            }
+            return "No Version information Available.";
+        }
 
     }
 }
