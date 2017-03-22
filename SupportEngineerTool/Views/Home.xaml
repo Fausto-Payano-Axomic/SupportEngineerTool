@@ -46,7 +46,7 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="../Resources/logo4use.jpg" Grid.Row="0" Grid.Column="0" StretchDirection="DownOnly" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
@@ -82,8 +82,6 @@
                                     <TextBlock VerticalAlignment="Center">ZenDesk</TextBlock>
                                 </StackPanel>
                             </Button>
-                            <TextBlock Style="{DynamicResource MaterialDesignDisplay1TextBlock}" HorizontalAlignment="Right" x:Name="VersionLabel"
-                                   Grid.Row="1" Grid.Column="1" Text="{Binding VersionNumber}"/>
                         </Grid>
                     </Border>
                 </Grid>
