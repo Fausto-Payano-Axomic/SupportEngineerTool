@@ -22,17 +22,26 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}">Buttons</TextBlock>
-        <Grid Grid.Row="1" >
-            <StackPanel Orientation="Horizontal" Margin="0 12 0 0">
-                <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        Margin="0 0 8 0" HorizontalAlignment="Left"
-                        ToolTip="MaterialDesignFloatingActionMiniLightButton">
-                    <materialDesign:PackIcon Kind="Alarm" Height="24" Width="24" />
-                </Button>
-            </StackPanel>
-        </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Stretch" Margin="0 0 0 0" HorizontalAlignment="Stretch"
+                 MinWidth="350"
+                 AcceptsReturn="True"
+                 FontStyle="Normal"
+                 FontWeight="Light"
+                 FontStretch="Medium"
+                 FontSize="12"
+                 FontFamily="Verdana"
+                 IsReadOnly="True"
+                 VerticalScrollBarVisibility="Auto"
+                 materialDesign:HintAssist.Hint="Patch Updater Log"
+                 Height="200"/>
+        <TextBox Grid.Row="0" Grid.Column="1" materialDesign:HintAssist.Hint="Version for patch"/>
     </Grid>
 </UserControl>
